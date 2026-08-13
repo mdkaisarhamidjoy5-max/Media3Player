@@ -1,0 +1,12 @@
+name: Media3Player
+description: Media Player with Custom Headers
+author: mdkaisarhamidjoy5-max
+version: 1.0.0
+
+assets:
+  - deps
+
+deps:
+  - androidx.media3:media3-exoplayer:1.2.0
+  - androidx.media3:media3-exoplayer-hls:1.2.0
+  - androidx.media3:media3-ui:1.2.0
