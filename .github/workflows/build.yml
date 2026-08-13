@@ -1,4 +1,4 @@
-name: Build Extension
+name: Build AIX Extension
 
 on:
   push:
@@ -10,26 +10,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Set up Java 11
+      - name: Set up JDK 8
         uses: actions/setup-java@v3
         with:
-          java-version: '11'
+          java-version: '8'
           distribution: 'temurin'
 
-      - name: Install Fast CLI
+      - name: Download Extension Template & Build
         run: |
-          python3 -m pip install fast-cli
-
-      - name: Build Extension
-        run: |
-          fast build
+          git clone https://github.com/mit-c開幕/appinventor-sources.git appinventor
+          mkdir -p appinventor/appinventor/components/src/com/yourname/media3player
+          cp src/com/yourname/media3player/Media3Player.java appinventor/appinventor/components/src/com/yourname/media3player/
+          cd appinventor/appinventor
+          ant extensions
 
       - name: Upload AIX Artifact
         uses: actions/upload-artifact@v4
         with:
           name: Media3Player-AIX
-          path: out/*.aix
-
+          path: appinventor/appinventor/build/components/build/extensions/*.aix
