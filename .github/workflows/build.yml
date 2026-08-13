@@ -1,0 +1,24 @@
+name: Build Extension
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+      - name: Install Rush
+        run: |
+          npm install -g rush-cli
+      - name: Build AIX
+        run: |
+          rush build
+      - name: Upload AIX
+        uses: actions/upload-artifact@v3
+        with:
+          name: Media3Player-AIX
+          path: out/*.aix
